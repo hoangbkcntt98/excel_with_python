@@ -23,7 +23,7 @@ class ToolBtnFrame(ttk.Frame):
             command=lambda :super_container.change_mode(1)).grid(column=1, row=0, padx=5)
         ttk.Radiobutton(
             container,
-            text='Limit Rows',
+            text='Handle Rows',
             style="bBlue.TRadiobutton",
             value=2,
             variable=self.selected_value,

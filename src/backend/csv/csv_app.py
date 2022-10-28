@@ -30,7 +30,7 @@ def get_headers(dataframe):
 
 def read_execl_file(path, sheet = "K", reading_cols = "B:K", unness_rows= False, is_fill_title = False, is_last = False):
     if not unness_rows:
-        unness_rows = lambda  x: x in [1]
+        unness_rows = None
     if reading_cols:
         data_xls = pd.read_excel(path, sheet, index_col=None, usecols=reading_cols, skiprows=unness_rows)
     else:
@@ -69,14 +69,16 @@ def check_exist_file(path_dir):
         return False
     return True
 
-def read_data_from_csv(path_dir, ordered_columns = False, deleted_columns = False):
+def read_data_from_csv(path_dir, ordered_columns = False, deleted_columns = False, limit= False, skip= False):
     if not check_exist_file(path_dir):
         return {
             'header': [],
             'data': []
         }
-    data_csv = pd.read_csv(path_dir)
-    # data_csv.replace({pd.NA: np.nan})
+    if skip:
+        data_csv = pd.read_csv(path_dir, skiprows=skip)
+    else:
+        data_csv = pd.read_csv(path_dir)
     headers = get_headers(data_csv)
     if ordered_columns:
         data_csv = data_csv[ordered_columns]
@@ -84,6 +86,7 @@ def read_data_from_csv(path_dir, ordered_columns = False, deleted_columns = Fals
     if deleted_columns:
         headers = [x for x in headers if not x in deleted_columns]
     data = []
+
     for i in range(len(data_csv)):
         row = []
         if deleted_columns :
@@ -93,6 +96,12 @@ def read_data_from_csv(path_dir, ordered_columns = False, deleted_columns = Fals
         row = remove_nan(row)
 
         data.append(row)
+    if limit:
+        temp= []
+        for i in range(len(data)):
+            if i>=limit[0] and i<=limit[1]:
+                temp.append(data[i])
+        data = temp
     results = {
         'data': data,
         'header': headers,
@@ -100,14 +109,14 @@ def read_data_from_csv(path_dir, ordered_columns = False, deleted_columns = Fals
     return results
 
 
-def save_csv(path_dir,tree):
-    with open(path_dir, "w", newline='') as myfile:
-        csvwriter = csv.writer(myfile, delimiter=',')
-
-        for row_id in tree.get_children():
-            row = tree.item(row_id)['values']
-            print('save row:', row)
-            csvwriter.writerow(row)
+# def save_csv(path_dir,tree):
+#     with open(path_dir, "w", newline='') as myfile:
+#         csvwriter = csv.writer(myfile, delimiter=',')
+#
+#         for row_id in tree.get_children():
+#             row = tree.item(row_id)['values']
+#             print('save row:', row)
+#             csvwriter.writerow(row)
 def create_csv_from_list(path_dir, data):
     with open(path_dir, "w", newline='',encoding='utf_8') as myfile:
         csvwriter = csv.writer(myfile, delimiter=',')

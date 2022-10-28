@@ -49,8 +49,6 @@ class TreeViewFrame(ttk.Frame):
                 self.mytree.column(i, width=240)
             else:
                 self.mytree.column(i, width=120)
-
-
     def del_cols(self, del_list):
         display_columns = []
         for col in self.mytree["columns"]:
@@ -58,15 +56,15 @@ class TreeViewFrame(ttk.Frame):
                 display_columns.append(col)
         self.mytree['displaycolumns'] = display_columns
         self.mytree.update()
-    def update_table(self, columns):
-        if columns:
-            self.ordered_column = columns
-            self.clear_all()
-            self.data_csv = read_data_from_csv(__output_dir__+'output.csv', ordered_columns=columns, deleted_columns=self.container.get_deleted_cols())
-            print('updated_data', self.data_csv )
-            self.create_tree()
-        else:
-            print('nothing for update')
+    def update_table(self):
+        self.clear_all()
+        self.data_csv = read_data_from_csv(__output_dir__+'output.csv',
+                                           ordered_columns=self.container.get_ordered_cols(),
+                                           deleted_columns=self.container.get_deleted_cols(),
+                                           limit=self.container.get_limit(),
+                                           skip=self.container.get_skip_row()
+                                           )
+        self.create_tree()
 
     def clear_all(self):
         print('delete_all')

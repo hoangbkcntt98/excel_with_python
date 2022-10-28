@@ -18,10 +18,13 @@ class CreateRecordFrame(ttk.Frame):
         self.control = control
         self.check_list = []
         self.order_list = []
+        self._skip_row = False
         self.show_frame = 0
 
         # read data
         self.data_csv = read_data_from_csv(__output_dir__ + 'output.csv')
+        self._from_row = 0
+        self._to_row = len(self.data_csv['data'])
         # tree view Frame
         self.treeview_frame = TreeViewFrame(self, self.data_csv)
         #add frame
@@ -44,7 +47,7 @@ class CreateRecordFrame(ttk.Frame):
         csv_btn = ttk.Button(
             master=button_frame,
             text="Make CSV",
-            command=lambda: self.get_trees_data()
+            command=lambda: self.to_csv()
         )
         csv_btn.place(x=190, y=20)
         button_frame.pack()
@@ -76,7 +79,7 @@ class CreateRecordFrame(ttk.Frame):
         self.show_frame = 1
         ordered_list = [x.get() for x in self.order_list]
         print('order',ordered_list)
-        self.treeview_frame.update_table(ordered_list)
+        self.treeview_frame.update_table()
         self.change_frame()
 
     def apply_mode(self, val):
@@ -86,6 +89,11 @@ class CreateRecordFrame(ttk.Frame):
             self.change_order()
         elif val ==0 :
             self.delete_cols()
+        elif val == 2:
+            self.limit_row()
+
+    def limit_row(self):
+        self.treeview_frame.update_table()
 
     def delete_cols(self):
         del_list = [x.get() for x in self.check_list if x.get() != '']
@@ -95,12 +103,18 @@ class CreateRecordFrame(ttk.Frame):
         return [x.get() for x in self.check_list]
     def get_ordered_cols(self):
         return [x.get() for x in self.order_list]
-
-    def get_trees_data(self):
+    def get_limit(self):
+        print(self._skip_row)
+        return [self._from_row, self._to_row]
+    def get_skip_row(self):
+        return self._skip_row
+    def to_csv(self):
         # tree = self.treeview_frame.mytree
         ordered = [x.get() for x in self.order_list]
         deleted = [x.get() for x in self.check_list]
-        data = read_data_from_csv(__output_dir__+'output.csv',ordered_columns=ordered,deleted_columns=deleted)
+        limit = [self._from_row, self._to_row]
+        skip = self.get_skip_row()
+        data = read_data_from_csv(__output_dir__+'output.csv',ordered_columns=ordered,deleted_columns=deleted, limit = limit, skip=skip)
         create_csv_from_list(__output_dir__+'handled_data.csv',data['data'])
 
     def all_columns(self):
