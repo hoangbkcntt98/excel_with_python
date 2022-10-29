@@ -15,7 +15,7 @@ class ButtonFrame(ttk.Frame):
         self.data = None
         import_btn = ttk.Button(
             self,
-            text="Import File",
+            text="Generate Data",
             command=self.hanle_import
         )
         import_btn.grid(column=0,row =0, padx=5)

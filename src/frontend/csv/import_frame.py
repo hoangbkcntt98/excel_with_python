@@ -4,7 +4,7 @@ from src.frontend.component.image import PandaImage
 from src.config import __image_dir__, __sr_width__,__base_font__, __output_dir__, __sr_height__
 from src.frontend.asset.style.styles import PandaStyle
 from tkinter.messagebox import showinfo, showerror
-from src.backend.csv.csv_app import get_excel_info, to_csv, read_data_from_csv, read_execl_file
+from src.backend.csv.csv_app import get_excel_info, to_csv, read_data_from_csv, read_execl_file, create_csv_from_list
 from tkinter import filedialog as fd
 import os.path
 from src.util.util_string import get_string
@@ -136,7 +136,6 @@ class ImportFrame(ttk.Frame):
             )
             import_update_btn.place(x=250, y=20, width=100)
     def import_update_data(self):
-        print('Information', get_string(self.sheet_name), get_string(self.skip_rows), get_string(self.limit_columns))
         sheet_name = get_string(self.sheet_name)
         skip_rows = get_string(self.skip_rows)
         limit_columns = get_string(self.limit_columns)
@@ -151,6 +150,8 @@ class ImportFrame(ttk.Frame):
             if res:
                 self.control.data_csv = read_data_from_csv(__output_dir__ + 'output.csv')
                 self.control.update_frame(1)
+                self.control.sheet_name = sheet_name
+                create_csv_from_list(__output_dir__+'file_info.csv', [[sheet_name,skip_rows,limit_columns]])
                 showinfo(
                     title='Read file',
                     message='Read file successfully ! \n' + self.file_path

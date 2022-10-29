@@ -6,6 +6,7 @@ from src.frontend.csv.import_frame import ImportFrame
 from src.frontend.asset.style.styles import PandaStyle
 from src.frontend.component.menu import MenuBar
 from src.frontend.component.app import App
+from src.backend.csv.csv_app import get_sheet_name
 from src.config import __sr_width__
 class ControlFrame(ttk.Frame):
     def __init__(self, container):
@@ -15,6 +16,7 @@ class ControlFrame(ttk.Frame):
 
         self.container = container
         self.view_frame = 0
+        self.sheet_name = get_sheet_name()
         self.data_csv = {
             "data":[],
             'header':[]

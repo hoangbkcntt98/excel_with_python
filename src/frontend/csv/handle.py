@@ -28,7 +28,7 @@ class CreateRecordFrame(ttk.Frame):
         #sheet_name_label
         sheet_name_label = ttk.Label(
             master=self,
-            text="Sheet Name"
+            text="Sheet Name: " + self.control.sheet_name
         )
         sheet_name_label.pack()
 
@@ -61,7 +61,8 @@ class CreateRecordFrame(ttk.Frame):
         button_frame.pack_propagate(0)
 
         # Tool Btn Frame
-        tool_frame = ttk.Frame(self, width=__sr_width__ - 20, height=120,)
+        tool_frame = ttk.Frame(self, width=__sr_width__ - 20, height=120)
+        tool_frame.configure(style="bWhite.TLabelframe")
         ToolBtnFrame(tool_frame, self)
         tool_frame.pack(after=add_frame)
         tool_frame.pack_propagate(0)

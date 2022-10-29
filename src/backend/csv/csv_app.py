@@ -8,6 +8,7 @@ import csv
 import numpy as np
 from openpyxl import load_workbook
 from src.util.util_string import remove_nan
+from src.config import __output_dir__
 def fill_title(data_xls):
     for i in range(len(data_xls)):
         title_no = data_xls.loc[i, header['title_no']]
@@ -129,3 +130,11 @@ def create_csv_from_list(path_dir, data):
         csvwriter = csv.writer(myfile, delimiter=',')
         for row in data:
             csvwriter.writerow(row)
+
+def get_sheet_name():
+    file = __output_dir__+'file_info.csv'
+    if not check_exist_file(file):
+        return ""
+    data = pd.read_csv(file, header=None)
+    print(data)
+    return data.loc[0,0]

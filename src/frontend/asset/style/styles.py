@@ -7,9 +7,11 @@ class PandaStyle(ttk.Style):
         #checkbox button
         self.configure('TRadiobutton', background="white")
         self.configure('TLabel', background="white")
+        self.configure('TLabelframe', background="white")
         self.configure('TFrame', background="white")
         self.configure('bWhite.TFrame', background="white")
         self.configure('bBlue.TFrame', background="#F0F8FF")
         self.configure('bBlue.TCheckbutton', background="#F0F8FF")
         self.configure('bBlue.TRadiobutton', background="#F0F8FF")
+        self.configure('bWhite.TRadiobutton', background="white")
         self.configure('TCheckbutton', background="white")

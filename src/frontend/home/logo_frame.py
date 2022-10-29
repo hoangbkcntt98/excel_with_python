@@ -13,7 +13,7 @@ class LogoFrame(ttk.Frame):
     def __init__(self,container, control):
         super().__init__(container, width=__sr_width__,height=400)
         PandaStyle()
-        self.config(style="bBlue.TFrame")
+        self.config(style="bWhite.TFrame")
         canvas = Canvas(self, width=__sr_width__, height=300, bg="white")
         canvas.create_text(canvas.winfo_reqwidth()/2,40, text="Hello, Panda!", font=__base_font__)
         img = PandaImage(__image_dir__+'panda.jpg',0.4)
@@ -21,7 +21,7 @@ class LogoFrame(ttk.Frame):
         left, top = align_center(canvas)
         canvas.create_image(left, top, image=img)
 
-        canvas.create_text(left,top+70, text="@copyright by hoangbk")
+        canvas.create_text(left,top+70, text="@Copyright by hoangbk")
 
         canvas.grid(row=0,column=0)
         ButtonFrame(self, control)
