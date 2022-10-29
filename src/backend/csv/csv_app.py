@@ -6,6 +6,7 @@ import os.path
 from os import path
 import csv
 import numpy as np
+from openpyxl import load_workbook
 from src.util.util_string import remove_nan
 def fill_title(data_xls):
     for i in range(len(data_xls)):
@@ -31,6 +32,8 @@ def get_headers(dataframe):
 def read_execl_file(path, sheet = "K", reading_cols = "B:K", unness_rows= False, is_fill_title = False, is_last = False):
     if not unness_rows:
         unness_rows = None
+    else:
+        unness_rows = lambda x: x in unness_rows
     if reading_cols:
         data_xls = pd.read_excel(path, sheet, index_col=None, usecols=reading_cols, skiprows=unness_rows)
     else:
@@ -54,10 +57,14 @@ def read_execl_file(path, sheet = "K", reading_cols = "B:K", unness_rows= False,
         'data_frame': data_xls
     }
     return results
-
-
-
-
+def get_excel_info(path_dir):
+    wb = load_workbook(path_dir)
+    result  = {
+        'file_path': path_dir,
+        'sheet_name': wb.sheetnames
+    }
+    print(wb.sheetnames)
+    return result
 
 def to_csv(new_file_path,data_xls, is_save = True):
     data_xls.to_csv(new_file_path, encoding='utf_8', na_rep='Na', index=False, float_format = "%d")

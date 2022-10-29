@@ -4,7 +4,7 @@ from src.config import __sr_width__, __output_dir__
 from src.backend.csv.csv_app import read_data_from_csv
 class TreeViewFrame(ttk.Frame):
     def __init__(self, container, data_csv):
-        super().__init__(container, width=__sr_width__, height=160)
+        super().__init__(container, width=__sr_width__, height=170)
         self.container = container
         self.ordered_column = False
         self.data_csv = data_csv
@@ -17,7 +17,7 @@ class TreeViewFrame(ttk.Frame):
         # treeview frame
 
         self.pack_propagate(False)
-        self.pack()
+        self.pack(padx=2)
         # treeview
         style = ttk.Style()
         style.configure("Treeview",
@@ -30,7 +30,7 @@ class TreeViewFrame(ttk.Frame):
         self.mytree.place(width=__sr_width__ - 30, height=140)
 
         scrollbary.place(relx=0.97, rely=0.001, width=20, height=160)
-        scrollbarx.place(relx=0.002, rely=0.922, width=__sr_width__, height=20)
+        scrollbarx.place(relx=0.002, rely=0.82, width=__sr_width__, height=20)
 
         self.mytree.configure(xscrollcommand=scrollbarx.set, yscrollcommand=scrollbary.set)
         scrollbarx.configure(command=self.mytree.xview)

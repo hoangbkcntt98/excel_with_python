@@ -5,7 +5,7 @@ from src.config import __sr_width__
 
 class ChangeOrderFrame(ttk.Frame):
     def __init__(self, container, super_container, data):
-        super().__init__(container, width=__sr_width__-45, height=150)
+        super().__init__(container, width=__sr_width__-45, height=100)
         PandaStyle()
         self.configure(style='bWhite.TFrame')
         self.container = container

@@ -19,3 +19,7 @@ def list_str_to_int(list):
     if len(newList) ==0:
         return False
     return newList
+def get_string(val, default_val = False):
+    if val.get() == '':
+        return False
+    return val.get()

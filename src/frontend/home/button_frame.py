@@ -16,7 +16,7 @@ class ButtonFrame(ttk.Frame):
         import_btn = ttk.Button(
             self,
             text="Import File",
-            command=self.select_files
+            command=self.hanle_import
         )
         import_btn.grid(column=0,row =0, padx=5)
         review_btn = ttk.Button(
@@ -30,6 +30,11 @@ class ButtonFrame(ttk.Frame):
         exit_btn.grid(column=2,row =0, padx=5, pady=20)
         self.grid(row=1, column =0)
         self.pack_propagate(0)
+
+    def hanle_import(self):
+        self.control.view_frame = 2
+        self.control.change_frame()
+
 
     def select_files(self):
         print('import')

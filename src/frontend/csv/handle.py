@@ -25,12 +25,19 @@ class CreateRecordFrame(ttk.Frame):
         self.data_csv = read_data_from_csv(__output_dir__ + 'output.csv')
         self._from_row = 0
         self._to_row = len(self.data_csv['data'])
+        #sheet_name_label
+        sheet_name_label = ttk.Label(
+            master=self,
+            text="Sheet Name"
+        )
+        sheet_name_label.pack()
+
         # tree view Frame
         self.treeview_frame = TreeViewFrame(self, self.data_csv)
         #add frame
         add_frame_wrapper = ttk.LabelFrame(self, width=__sr_width__ - 20, height=90, padding=5, text="Tools")
         add_frame_wrapper.pack()
-        add_frame = VerticalScrolledFrame(add_frame_wrapper, width=__sr_width__-20, height=100, padding=5)
+        add_frame = VerticalScrolledFrame(add_frame_wrapper, width=__sr_width__-20, height=85, padding=5)
         add_frame.pack()
         add_frame.pack_propagate(0)
         self.frames = {

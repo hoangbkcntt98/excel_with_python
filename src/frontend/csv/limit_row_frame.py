@@ -24,7 +24,7 @@ class LimitRowFrame(ttk.Frame):
         )
         _from.place(x=110, y = 50, width=50)
 
-        _to_value = tk.IntVar(value=max_row)
+        _to_value = tk.IntVar(value=max_row+1)
         _to_label = ttk.Label(
             master=self,
             text='To row',
@@ -61,13 +61,13 @@ class LimitRowFrame(ttk.Frame):
             bg='blue',
             fg='white',
         )
-        _set_btn.place(x= 350, y =30, width=40)
+        _set_btn.place(x= 350, y =0, width=40)
 
         warning_label = ttk.Label(
             master=self,
-            text="You need click 'Set' before 'Apply'"
+            text="(You need click 'Set' before 'Apply')"
         )
-        warning_label.place(x = 350, y = 60 )
+        warning_label.place(x = 350, y = 30 )
         self.pack()
         self.place(x=0, y=0)
         self.pack_propagate(0)

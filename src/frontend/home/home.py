@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from logo_frame import LogoFrame
 from src.frontend.csv.handle import CreateRecordFrame
+from src.frontend.csv.import_frame import ImportFrame
 from src.frontend.asset.style.styles import PandaStyle
 from src.frontend.component.menu import MenuBar
 from src.frontend.component.app import App
@@ -21,7 +22,8 @@ class ControlFrame(ttk.Frame):
         # initialize frames
         self.frames = {
             0: LogoFrame(container, self),
-            1: CreateRecordFrame(container, self)
+            1: CreateRecordFrame(container, self),
+            2: ImportFrame(container,self)
         }
 
         self.change_frame()
